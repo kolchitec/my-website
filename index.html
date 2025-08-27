@@ -1376,7 +1376,28 @@
     <a href="https://wa.me/213659420420" target="_blank" class="whatsapp-float visible" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
     <audio id="logo-sound" src="https://files.catbox.moe/e96u01.wav" preload="auto"></audio>
 
-    <script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBPMPJzv_yxYplozCEu0L__Y8lnrScRaCY",
+          authDomain: "kolchi-tec-website.firebaseapp.com",
+          projectId: "kolchi-tec-website",
+          storageBucket: "kolchi-tec-website.appspot.com",
+          messagingSenderId: "1077625994377",
+          appId: "1:1077625994377:web:51835ab56a336456419a58",
+          measurementId: "G-XB0N417HVX"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const testimonialsCol = collection(db, 'testimonials');
+
+
     document.addEventListener('DOMContentLoaded', () => {
 
         // ------------------- //
@@ -1724,23 +1745,6 @@
         });
 
         // ------------------- //
-        // --- DATA & LOCALSTORAGE --- //
-        // ------------------- //
-        function loadTestimonials() {
-            const saved = localStorage.getItem('kolchiTecTestimonials');
-            if (saved) {
-                testimonialsData = JSON.parse(saved);
-            } else {
-                // Default data is now empty
-                testimonialsData = [];
-            }
-        }
-
-        function saveTestimonials() {
-            localStorage.setItem('kolchiTecTestimonials', JSON.stringify(testimonialsData));
-        }
-
-        // ------------------- //
         // --- DYNAMIC CONTENT POPULATION --- //
         // ------------------- //
         const populateMainServices = () => {
@@ -1782,7 +1786,8 @@
             `).join('');
         };
         
-        const populateTestimonials = () => {
+        const populateTestimonials = (data) => {
+            testimonialsData = data;
             if(testimonialsData.length === 0) {
                 testimonialCarousel.innerHTML = `<p style="text-align:center; width:100%; color: var(--text-secondary);">No testimonials yet. Be the first to leave one!</p>`;
                 return;
@@ -1801,7 +1806,7 @@
                             </div>
                         </div>
                         <p class="testimonial-text">${testimonial.text}</p>
-                        ${testimonial.images.length > 0 ? `
+                        ${testimonial.images && testimonial.images.length > 0 ? `
                         <button class="view-photos-btn" data-id="${testimonial.id}">View Photos (${testimonial.images.length})</button>
                         ` : ''}
                     </div>
@@ -1913,12 +1918,15 @@
             document.querySelectorAll('.delete-testimonial-btn').forEach(btn => {
                 btn.onclick = (e) => {
                     e.stopPropagation();
-                    const id = parseInt(btn.dataset.id);
-                    promptForCredentials(success => {
+                    const id = btn.dataset.id;
+                    promptForCredentials(async success => {
                         if (success) {
-                            testimonialsData = testimonialsData.filter(t => t.id !== id);
-                            saveTestimonials();
-                            populateTestimonials();
+                            try {
+                                await deleteDoc(doc(db, "testimonials", id));
+                            } catch (error) {
+                                console.error("Error removing document: ", error);
+                                alert("Error deleting testimonial.");
+                            }
                         } else {
                             alert('Incorrect credentials.');
                         }
@@ -1928,14 +1936,15 @@
             
             document.querySelectorAll('.testimonial-card.blurry').forEach(card => {
                 card.onclick = () => {
-                    const id = parseInt(card.dataset.id);
-                    promptForCredentials(success => {
+                    const id = card.dataset.id;
+                    promptForCredentials(async success => {
                         if (success) {
-                            const testimonial = testimonialsData.find(t => t.id === id);
-                            if (testimonial) {
-                                testimonial.approved = true;
-                                saveTestimonials();
-                                populateTestimonials();
+                            try {
+                                const testimonialRef = doc(db, "testimonials", id);
+                                await updateDoc(testimonialRef, { approved: true });
+                            } catch(error) {
+                                console.error("Error approving document: ", error);
+                                alert("Error approving testimonial.");
                             }
                         } else {
                             alert('Incorrect credentials.');
@@ -1947,7 +1956,7 @@
             document.querySelectorAll('.view-photos-btn').forEach(btn => {
                 btn.onclick = (e) => {
                     e.stopPropagation();
-                    const id = parseInt(btn.dataset.id);
+                    const id = btn.dataset.id;
                     const testimonial = testimonialsData.find(t => t.id === id);
                     if (testimonial && testimonial.images.length > 0) {
                         showImageLightbox(testimonial.images);
@@ -2011,7 +2020,7 @@
             });
         }
 
-        testimonialForm.addEventListener('submit', (e) => {
+        testimonialForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('customer-name').value;
             const ratingEl = document.querySelector('input[name="rating"]:checked');
@@ -2023,29 +2032,28 @@
             const text = document.getElementById('feedback-text').value;
 
             const newTestimonial = {
-                id: Date.now(),
                 name,
                 rating,
                 text,
-                images: uploadedFiles.map(f => f.url),
+                images: uploadedFiles.map(f => f.url), // Note: For a real app, you'd upload to Firebase Storage and save URLs
                 avatar: `https://placehold.co/100x100/a3e635/5b21b6?text=${name.substring(0,2).toUpperCase()}`,
-                approved: false // New testimonials are not approved by default
+                approved: false,
+                createdAt: new Date()
             };
 
-            testimonialsData.unshift(newTestimonial);
-            saveTestimonials();
-            populateTestimonials();
-            
-            // Show thank you message and reset form
-            showThankYouMessage();
-            testimonialForm.reset();
-            uploadedFiles = [];
-            renderImagePreviews();
-            
-            // Hide form after submission
-            feedbackFormWrapper.classList.remove('visible');
-            const lang = localStorage.getItem('language') || 'en';
-            toggleFeedbackBtn.textContent = translations[lang].add_testimonial_btn || 'Add Your Testimonial';
+            try {
+                await addDoc(testimonialsCol, newTestimonial);
+                showThankYouMessage();
+                testimonialForm.reset();
+                uploadedFiles = [];
+                renderImagePreviews();
+                feedbackFormWrapper.classList.remove('visible');
+                const lang = localStorage.getItem('language') || 'en';
+                toggleFeedbackBtn.textContent = translations[lang].add_testimonial_btn || 'Add Your Testimonial';
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("There was an error submitting your feedback. Please try again.");
+            }
         });
         
         // Fade-in animations on scroll
@@ -2183,15 +2191,22 @@
             const savedTheme = localStorage.getItem('theme') || 'dark';
             applyTheme(savedTheme);
             
-            // Load data
-            loadTestimonials();
-
-            // Populate dynamic content
+            // Populate static content
             populateMainServices();
             populateOtherServices();
             populateWhyUs();
-            populateTestimonials();
             
+            // Listen for realtime testimonial updates
+            onSnapshot(testimonialsCol, (snapshot) => {
+                const testimonials = [];
+                snapshot.docs.forEach(doc => {
+                    testimonials.push({ ...doc.data(), id: doc.id });
+                });
+                // Sort by creation date, newest first
+                testimonials.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate());
+                populateTestimonials(testimonials);
+            });
+
             // Prepare and load saved language
             addTranslationData();
             const savedLanguage = localStorage.getItem('language') || 'en';
