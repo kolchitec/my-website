@@ -1,1 +1,2220 @@
-# my-website
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolchi-Tec – All-in-One Technology Solutions</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ------------------- */
+        /* --- CSS Reset --- */
+        /* ------------------- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ------------------- */
+        /* --- Root Variables & Base Styles --- */
+        /* ------------------- */
+        :root {
+            /* Brand Colors */
+            --brand-purple: #5b21b6;
+            --brand-lime: #a3e635;
+            
+            /* Light Theme Variables */
+            --bg-primary-light: #f8fafc;
+            --bg-secondary-light: #ffffff;
+            --text-primary-light: #0f172a;
+            --text-secondary-light: #475569;
+            --border-color-light: #e2e8f0;
+            --header-bg-light: rgba(255, 255, 255, 0.85);
+
+            /* Dark Theme Variables */
+            --bg-primary-dark: #0f172a;
+            --bg-secondary-dark: #1e293b;
+            --text-primary-dark: #f1f5f9;
+            --text-secondary-dark: #94a3b8;
+            --border-color-dark: #334155;
+            --header-bg-dark: rgba(15, 23, 42, 0.85);
+
+            /* Shadows & Transitions */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --transition-speed: 0.3s;
+            --transition-timing: ease-in-out;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color var(--transition-speed) var(--transition-timing), color var(--transition-speed) var(--transition-timing);
+            line-height: 1.6;
+        }
+
+        /* Set Light Theme as Default */
+        body {
+            --primary-color: var(--brand-purple);
+            --accent-color: var(--brand-lime);
+            --bg-primary: var(--bg-primary-light);
+            --bg-secondary: var(--bg-secondary-light);
+            --text-primary: var(--text-primary-light);
+            --text-secondary: var(--text-secondary-light);
+            --border-color: var(--border-color-light);
+            --header-bg: var(--header-bg-light);
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            --primary-color: var(--brand-lime);
+            --accent-color: var(--brand-purple);
+            --bg-primary: var(--bg-primary-dark);
+            --bg-secondary: var(--bg-secondary-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --border-color: var(--border-color-dark);
+            --header-bg: var(--header-bg-dark);
+        }
+
+        /* ------------------- */
+        /* --- Utility Classes --- */
+        /* ------------------- */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+            color: var(--text-secondary);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ------------------- */
+        /* --- Header & Navigation --- */
+        /* ------------------- */
+        #main-header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-speed) var(--transition-timing), border-color var(--transition-speed) var(--transition-timing);
+            padding: 0.75rem 0;
+        }
+
+        #main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .logo:hover .logo-img {
+            transform: rotate(360deg);
+        }
+
+        .logo-text span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: color var(--transition-speed) var(--transition-timing);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width var(--transition-speed) var(--transition-timing);
+        }
+        
+        body.dark-mode .nav-links a::after {
+            background-color: var(--brand-purple);
+        }
+
+
+        .nav-links a:hover::after {
+            width: 50%;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle, .lang-toggle, .mobile-menu-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            transition: color var(--transition-speed) var(--transition-timing);
+        }
+
+        .theme-toggle:hover, .lang-toggle:hover, .mobile-menu-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .lang-toggle select {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .lang-toggle select:focus {
+            outline: none;
+        }
+
+        .lang-toggle option {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        /* ------------------- */
+        /* --- Hero Section --- */
+        /* ------------------- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        #hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-logo {
+            width: 360px;
+            height: 360px;
+            margin: 0 auto 1.5rem auto;
+            animation: float 4s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        }
+
+        .hero-logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 20px 25px rgba(0,0,0,0.2));
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .hero-title span {
+             color: var(--primary-color);
+        }
+
+        .hero-slogan {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-slogan span {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        body.dark-mode .hero-slogan span {
+             background: linear-gradient(45deg, var(--brand-lime), var(--brand-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        /* ------------------- */
+        /* --- Main Services Section --- */
+        /* ------------------- */
+        .main-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card-container {
+            perspective: 1000px;
+            min-height: 400px;
+        }
+
+        .service-card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            cursor: pointer;
+        }
+
+        .service-card-container:hover .service-card,
+        .service-card-container.flipped .service-card {
+            transform: rotateY(180deg);
+        }
+
+        .service-card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border-radius: 1rem;
+            background-color: var(--bg-secondary);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .main-service-icon {
+            font-size: 4.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-primary);
+            border-radius: 50%;
+            transition: all var(--transition-speed) var(--transition-timing);
+        }
+
+        .service-card-container:hover .main-service-icon {
+            transform: scale(1.1);
+            color: var(--accent-color);
+            background-color: var(--primary-color);
+        }
+        
+        body.dark-mode .service-card-container:hover .main-service-icon {
+            color: var(--bg-secondary-dark);
+        }
+
+        .service-card-front h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .service-card-back {
+            transform: rotateY(180deg);
+            justify-content: flex-start;
+            align-items: flex-start;
+            text-align: left;
+        }
+        
+        .service-card-back h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        body.dark-mode .service-card-back h3 {
+             color: var(--brand-purple);
+        }
+
+        .service-card-back p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        /* ------------------- */
+        /* --- Other Services Section --- */
+        /* ------------------- */
+        #other-services {
+            background-color: var(--bg-secondary);
+        }
+        
+        .other-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .other-service-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background-color: var(--bg-primary);
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
+        }
+
+        .other-service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .other-service-card .icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            flex-shrink: 0;
+            width: 40px;
+            text-align: center;
+        }
+
+        .other-service-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* ------------------- */
+        /* --- Why Choose Us Section --- */
+        /* ------------------- */
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .why-us-card {
+            padding: 2rem;
+            background-color: var(--bg-secondary);
+            border-radius: 1rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            transition: transform var(--transition-speed) var(--transition-timing), box-shadow var(--transition-speed) var(--transition-timing);
+        }
+
+        .why-us-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .why-us-card .icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        body.dark-mode .why-us-card .icon {
+            color: var(--brand-purple);
+        }
+
+        .why-us-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-us-card p {
+            color: var(--text-secondary);
+        }
+
+        /* ------------------- */
+        /* --- Testimonials Section --- */
+        /* ------------------- */
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+
+        #testimonials {
+            background-color: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-carousel-wrapper {
+            overflow: hidden;
+            padding: 2rem 0;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+        }
+
+        .testimonial-carousel {
+            display: flex;
+            gap: 2rem;
+            width: max-content;
+        }
+        
+        .testimonial-carousel-wrapper:hover .testimonial-carousel {
+            animation-play-state: paused;
+        }
+
+        .testimonial-card {
+            flex-shrink: 0;
+            width: 350px;
+            padding: 2rem;
+            background-color: var(--bg-primary);
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        
+        .testimonial-card.blurry {
+            filter: blur(5px);
+            cursor: pointer;
+        }
+
+        .delete-testimonial-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .delete-testimonial-btn:hover {
+            color: #ef4444; /* red-500 */
+        }
+
+
+        .testimonial-card-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-images {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-images img {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .testimonial-images img:hover {
+            transform: scale(1.1);
+        }
+        
+        .view-photos-btn {
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: all 0.2s;
+        }
+        .view-photos-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-secondary);
+        }
+
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .testimonial-text::before {
+            content: '“';
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+        .testimonial-text::after {
+            content: '”';
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-left: 0.5rem;
+        }
+        
+        body.dark-mode .testimonial-text::before,
+        body.dark-mode .testimonial-text::after {
+            color: var(--brand-purple);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-author-name {
+            font-weight: 700;
+        }
+
+        .testimonial-rating .fa-star {
+            color: #facc15; /* yellow-400 */
+        }
+
+        .carousel-controls {
+            display: none; /* Removed for smooth scroll */
+        }
+        
+        .add-testimonial-btn-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .cta-button {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color var(--transition-speed) var(--transition-timing), transform var(--transition-speed) var(--transition-timing);
+            display: inline-block;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        body.dark-mode .cta-button {
+            color: var(--bg-secondary-dark);
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-color);
+            color: var(--text-primary);
+        }
+        
+        body.dark-mode .cta-button:hover {
+            background-color: var(--brand-purple);
+            color: var(--text-primary-dark);
+        }
+
+        /* ------------------- */
+        /* --- Feedback Form Section --- */
+        /* ------------------- */
+        #feedback {
+            padding-top: 0;
+        }
+        
+        .feedback-form-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s ease-in-out;
+        }
+
+        .feedback-form-wrapper.visible {
+            max-height: 1000px; /* Adjust as needed */
+        }
+        
+        .form-container {
+            max-width: 700px;
+            margin: 2rem auto 0 auto;
+            padding: 2.5rem;
+            background-color: var(--bg-secondary);
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 20%, transparent);
+        }
+
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 0.25rem;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 2rem;
+            color: #cbd5e1; /* cool-gray-300 */
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .star-rating input[type="radio"]:checked ~ label,
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #facc15; /* yellow-400 */
+        }
+        
+        #image-upload {
+            display: none;
+        }
+
+        .image-upload-label {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--bg-primary);
+            border: 1px dashed var(--border-color);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .image-upload-label:hover {
+            background-color: var(--bg-secondary);
+            border-color: var(--primary-color);
+        }
+
+        .image-previews {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .image-previews .preview-container {
+            position: relative;
+        }
+        .image-previews img {
+            width: 80px;
+            height: 80px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+        }
+        .remove-img-btn {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .form-submit-btn {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        body.dark-mode .form-submit-btn {
+            color: var(--bg-secondary-dark);
+        }
+        
+        .form-submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* ------------------- */
+        /* --- Contact Section & Footer --- */
+        /* ------------------- */
+        #contact {
+            background-color: var(--bg-secondary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .contact-info-item a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .contact-info-item a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-info-item .icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            width: 30px;
+            text-align: center;
+        }
+        
+        .social-media-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-media-links a {
+            font-size: 1.8rem;
+            color: var(--text-secondary);
+            transition: color 0.2s, transform 0.2s;
+        }
+        .social-media-links a:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        footer {
+            background-color: var(--bg-primary);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        footer p {
+            color: var(--text-secondary);
+        }
+
+        /* ------------------- */
+        /* --- Extra Features (Modals, etc.) --- */
+        /* ------------------- */
+        .back-to-top, .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: var(--shadow-lg);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 1000;
+        }
+        
+        body.dark-mode .back-to-top {
+            color: var(--bg-secondary-dark);
+        }
+        
+        .back-to-top.visible, .whatsapp-float.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .back-to-top {
+            right: 20px;
+        }
+        
+        .whatsapp-float {
+            right: 20px;
+            bottom: 80px;
+            background-color: #25D366;
+        }
+        
+        .back-to-top:hover, .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 400px;
+            transform: scale(0.95);
+            transition: transform 0.3s;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+        .modal-content h3 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .modal-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .modal-btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        body.dark-mode .modal-btn-primary {
+            color: var(--bg-secondary-dark);
+        }
+        .modal-btn-secondary {
+            background-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        #image-lightbox {
+            background-color: rgba(0,0,0,0.85);
+        }
+        #image-lightbox .modal-content {
+            background: none;
+            box-shadow: none;
+            max-width: 90vw;
+            max-height: 90vh;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        #image-lightbox img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 0.5rem;
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.4);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            z-index: 2001;
+        }
+        .lightbox-prev { left: 10px; }
+        .lightbox-next { right: 10px; }
+        .lightbox-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.4);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+
+        /* ------------------- */
+        /* --- Responsive Design --- */
+        /* ------------------- */
+        @media (max-width: 992px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: var(--bg-secondary);
+                border-bottom: 1px solid var(--border-color);
+                box-shadow: var(--shadow-md);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            .nav-links a {
+                display: block;
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .nav-links li:last-child a {
+                border-bottom: none;
+            }
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            html {
+                font-size: 14px;
+            }
+            section {
+                padding: 3rem 0;
+            }
+            .container {
+                padding: 0 1rem;
+            }
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ======================= -->
+    <!-- ====== HEADER ======= -->
+    <!-- ======================= -->
+    <header id="main-header">
+        <div class="container">
+            <a href="#" class="logo" id="header-logo">
+                <img src="https://i.imgur.com/JqWrNos.png" alt="Kolchi-Tec Logo" class="logo-img" onerror="this.onerror=null;this.src='https://placehold.co/45x45/5b21b6/a3e635?text=KT';">
+                <span class="logo-text">Kolchi<span>-Tec</span></span>
+            </a>
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#main-services" data-lang="nav_services">Our Services</a></li>
+                    <li><a href="#why-us" data-lang="nav_why_us">Why Choose Us</a></li>
+                    <li><a href="#other-services" data-lang="nav_what_we_offer">What We Offer</a></li>
+                    <li><a href="#testimonials" data-lang="nav_testimonials">Testimonials</a></li>
+                    <li><a href="#feedback" data-lang="nav_feedback">Feedback</a></li>
+                    <li><a href="#contact" data-lang="nav_contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-controls">
+                <div class="lang-toggle">
+                    <i class="fas fa-globe"></i>
+                    <select id="language-selector">
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                        <option value="ar">العربية</option>
+                        <option value="tz">ⵜⴰⵎⴰⵣⵉⵖⵜ</option>
+                    </select>
+                </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ======================= -->
+        <!-- ====== HERO ========= -->
+        <!-- ======================= -->
+        <section id="hero">
+            <canvas id="hero-canvas"></canvas>
+            <div class="container hero-content fade-in">
+                <img src="https://i.imgur.com/cbZKbdf.png" alt="Kolchi-Tec Main Logo" class="hero-logo" onerror="this.onerror=null;this.src='https://placehold.co/120x120/5b21b6/a3e635?text=Kolchi-Tec';">
+                <h1 class="hero-title">Kolchi<span>-Tec</span></h1>
+                <p class="hero-slogan" data-lang="hero_slogan">All-in-One <span>Technology</span> Solutions</p>
+                <a href="#main-services" class="cta-button" data-lang="hero_cta">Explore Our Services</a>
+            </div>
+        </section>
+
+        <!-- ======================= -->
+        <!-- ====== MAIN SERVICES === -->
+        <!-- ======================= -->
+        <section id="main-services">
+            <div class="container">
+                <h2 class="section-title" data-lang="main_services_title">Our Main Services</h2>
+                <p class="section-subtitle" data-lang="main_services_subtitle">Discover our core offerings. We provide expert solutions with a professional touch. Hover over a card to see more details.</p>
+                <div class="main-services-grid" id="main-services-grid">
+                    <!-- Service cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======================= -->
+        <!-- ====== WHY CHOOSE US === -->
+        <!-- ======================= -->
+        <section id="why-us">
+            <div class="container">
+                <h2 class="section-title" data-lang="why_us_title">Why Choose Us?</h2>
+                <p class="section-subtitle" data-lang="why_us_subtitle">We are committed to providing the best service and value to our customers. Here’s what makes us stand out.</p>
+                <div class="why-us-grid" id="why-us-grid">
+                     <!-- Why Us cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= -->
+        <!-- ====== OTHER SERVICES === -->
+        <!-- ======================= -->
+        <section id="other-services">
+            <div class="container">
+                <h2 class="section-title" data-lang="other_services_title">What We Also Offer</h2>
+                <p class="section-subtitle" data-lang="other_services_subtitle">Beyond our main services, we provide a range of convenient digital and physical solutions to meet your everyday needs.</p>
+                <div class="other-services-grid" id="other-services-grid">
+                    <!-- Other service cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= -->
+        <!-- ====== TESTIMONIALS === -->
+        <!-- ======================= -->
+        <section id="testimonials">
+            <div class="container">
+                <h2 class="section-title" data-lang="testimonials_title">Customer Testimonials</h2>
+                <p class="section-subtitle" data-lang="testimonials_subtitle">See what our satisfied customers have to say about their experience with Kolchi-Tec. Your trust is our greatest asset.</p>
+                <div class="testimonial-carousel-wrapper">
+                    <div class="testimonial-carousel" id="testimonial-carousel">
+                        <!-- Testimonial cards will be dynamically inserted here -->
+                    </div>
+                </div>
+                <div class="add-testimonial-btn-container">
+                    <button class="cta-button" id="toggle-feedback-form" data-lang="add_testimonial_btn">Add Your Testimonial</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======================= -->
+        <!-- ====== FEEDBACK FORM === -->
+        <!-- ======================= -->
+        <section id="feedback">
+            <div class="container">
+                <div class="feedback-form-wrapper" id="feedback-form-wrapper">
+                    <div class="form-container">
+                        <h2 class="section-title" data-lang="feedback_title">Share Your Feedback</h2>
+                        <p class="section-subtitle" data-lang="feedback_subtitle">We value your opinion! Help us improve by sharing your experience. New testimonials appear instantly.</p>
+                        <form id="testimonial-form">
+                            <div class="form-group">
+                                <label for="customer-name" data-lang="form_name">Your Name</label>
+                                <input type="text" id="customer-name" name="customer-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label data-lang="form_rating">Your Rating</label>
+                                <div class="star-rating">
+                                    <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label>
+                                    <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                                    <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                                    <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                                    <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedback-text" data-lang="form_feedback_text">Feedback</label>
+                                <textarea id="feedback-text" name="feedback-text" rows="4" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="image-upload" data-lang="form_images">Upload up to 4 Images (Optional)</label>
+                                <label for="image-upload" class="image-upload-label"><i class="fas fa-cloud-upload-alt"></i> <span data-lang="form_select_images">Select Images</span></label>
+                                <input type="file" id="image-upload" name="image-upload" accept="image/*" multiple>
+                                <div class="image-previews" id="image-previews"></div>
+                            </div>
+                            <button type="submit" class="form-submit-btn" data-lang="form_submit_btn">Submit Testimonial</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= -->
+        <!-- ====== CONTACT ======= -->
+        <!-- ======================= -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title" data-lang="contact_title">Get In Touch</h2>
+                <p class="section-subtitle" data-lang="contact_subtitle">Have a question or a project in mind? We're here to help. Reach out to us through any of the channels below.</p>
+                <div class="contact-grid">
+                    <div class="contact-details fade-in">
+                        <div class="contact-info-item">
+                            <span class="icon"><i class="fab fa-whatsapp"></i></span>
+                            <div>
+                                <strong data-lang="contact_phone">Phone / WhatsApp / Telegram</strong><br>
+                                <a href="tel:+213659420420">+213 659 420 420</a> / <a href="tel:+213557584870">+213 557 58 48 70</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="icon"><i class="fas fa-envelope"></i></span>
+                            <div>
+                                <strong data-lang="contact_email">Email</strong><br>
+                                <a href="mailto:kolchitec@gmail.com">kolchitec@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+                            <div>
+                                <strong data-lang="contact_location">Location</strong><br>
+                                <a href="https://www.google.com/maps/place/Kolchi-Tec/@36.6895834,2.860956,17z/data=!4m6!3m5!1s0x128fa538b5f3701d:0x5baac6feae824ebb!8m2!3d36.6895813!4d2.8608467!16s%2Fg%2F11wr2bwlz0?hl=en&entry=ttu&g_ep=EgoyMDI1MDgxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" data-lang="contact_address">Boullevard 2, Sidi Abdellah, Alger</a>
+                            </div>
+                        </div>
+                        <div class="social-media-links">
+                            <a href="https://www.instagram.com/kolchitec/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.tiktok.com/@kolchitec" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a href="https://www.facebook.com/people/Kolchi-Tec/61571011926755/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                    <div class="map-container fade-in">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3227.638333333333!2d2.8608467!3d36.6895813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fa538b5f3701d%3A0x5baac6feae824ebb!2sKolchi-Tec!5e0!3m2!1sen!2sdz!4v1672531200000!5m2!1sen!2sdz"
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================= -->
+    <!-- ====== FOOTER ======= -->
+    <!-- ======================= -->
+    <footer>
+        <div class="container">
+            <p data-lang="footer_text">&copy; 2024 Kolchi-Tec. All Rights Reserved.</p>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">Website designed by: Louhaidia Djaber</p>
+        </div>
+    </footer>
+    
+    <!-- ======================= -->
+    <!-- ====== EXTRA FEATURES === -->
+    <!-- ======================= -->
+    <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
+    <a href="https://wa.me/213659420420" target="_blank" class="whatsapp-float visible" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <audio id="logo-sound" src="https://files.catbox.moe/e96u01.wav" preload="auto"></audio>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ------------------- //
+        // --- DATA OBJECTS --- //
+        // ------------------- //
+
+        const translations = {
+            en: {
+                nav_services: "Our Services",
+                nav_why_us: "Why Choose Us",
+                nav_what_we_offer: "What We Offer",
+                nav_testimonials: "Testimonials",
+                nav_feedback: "Feedback",
+                nav_contact: "Contact",
+                hero_slogan: "All-in-One <span>Technology</span> Solutions",
+                hero_description: "A trusted Algerian hub for repairs, tech solutions, accessories, and digital services.",
+                hero_cta: "Explore Our Services",
+                main_services_title: "Our Main Services",
+                main_services_subtitle: "Discover our core offerings. We provide expert solutions with a professional touch. Hover over a card to see more details.",
+                why_us_title: "Why Choose Us?",
+                why_us_subtitle: "We are committed to providing the best service and value to our customers. Here’s what makes us stand out.",
+                other_services_title: "What We Also Offer",
+                other_services_subtitle: "Beyond our main services, we provide a range of convenient digital and physical solutions to meet your everyday needs.",
+                testimonials_title: "Customer Testimonials",
+                testimonials_subtitle: "See what our satisfied customers have to say about their experience with Kolchi-Tec. Your trust is our greatest asset.",
+                add_testimonial_btn: "Add Your Testimonial",
+                close_form_btn: "Close Form",
+                feedback_title: "Share Your Feedback",
+                feedback_subtitle: "We value your opinion! Help us improve by sharing your experience. New testimonials appear instantly.",
+                form_name: "Your Name",
+                form_rating: "Your Rating",
+                form_feedback_text: "Feedback",
+                form_images: "Upload up to 4 Images (Optional)",
+                form_select_images: "Select Images",
+                form_submit_btn: "Submit Testimonial",
+                contact_title: "Get In Touch",
+                contact_subtitle: "Have a question or a project in mind? We're here to help. Reach out to us through any of the channels below.",
+                contact_phone: "Phone / WhatsApp / Telegram",
+                contact_email: "Email",
+                contact_location: "Location",
+                contact_address: "Boullevard 2 (opposite the student residence), Sidi Abdellah, Mehalema, Algiers.",
+                footer_text: "&copy; 2024 Kolchi-Tec. All Rights Reserved.",
+            },
+            fr: {
+                nav_services: "Nos Services",
+                nav_why_us: "Pourquoi Nous",
+                nav_what_we_offer: "Nos Offres",
+                nav_testimonials: "Témoignages",
+                nav_feedback: "Avis",
+                nav_contact: "Contact",
+                hero_slogan: "Solutions <span>Technologiques</span> Tout-en-Un",
+                hero_description: "Votre hub algérien de confiance pour les réparations, solutions tech, accessoires et services numériques.",
+                hero_cta: "Découvrez Nos Services",
+                main_services_title: "Nos Services Principaux",
+                main_services_subtitle: "Découvrez nos offres principales. Nous fournissons des solutions expertes avec une touche professionnelle. Survolez une carte pour plus de détails.",
+                why_us_title: "Pourquoi Nous Choisir ?",
+                why_us_subtitle: "Nous nous engageons à fournir le meilleur service et la meilleure valeur à nos clients. Voici ce qui nous distingue.",
+                other_services_title: "Ce que nous offrons aussi",
+                other_services_subtitle: "Au-delà de nos services principaux, nous proposons une gamme de solutions numériques et physiques pour vos besoins quotidiens.",
+                testimonials_title: "Témoignages Clients",
+                testimonials_subtitle: "Voyez ce que nos clients satisfaits disent de leur expérience avec Kolchi-Tec. Votre confiance est notre plus grand atout.",
+                add_testimonial_btn: "Ajoutez Votre Témoignage",
+                close_form_btn: "Fermer le Formulaire",
+                feedback_title: "Partagez Votre Avis",
+                feedback_subtitle: "Votre opinion compte ! Aidez-nous à nous améliorer en partageant votre expérience. Les nouveaux témoignages apparaissent instantanément.",
+                form_name: "Votre Nom",
+                form_rating: "Votre Évaluation",
+                form_feedback_text: "Commentaire",
+                form_images: "Télécharger jusqu'à 4 Images (Optionnel)",
+                form_select_images: "Choisir des Images",
+                form_submit_btn: "Soumettre le Témoignage",
+                contact_title: "Contactez-Nous",
+                contact_subtitle: "Une question ou un projet en tête ? Nous sommes là pour vous aider. Contactez-nous via l'un des canaux ci-dessous.",
+                contact_phone: "Téléphone / WhatsApp / Telegram",
+                contact_email: "Email",
+                contact_location: "Emplacement",
+                contact_address: "Boulevard 2 (en face de la résidence universitaire), Sidi Abdellah, Mehalma, Alger.",
+                footer_text: "&copy; 2024 Kolchi-Tec. Tous Droits Réservés.",
+            },
+            ar: {
+                nav_services: "خدماتنا",
+                nav_why_us: "لماذا نحن",
+                nav_what_we_offer: "ما نقدمه",
+                nav_testimonials: "الشهادات",
+                nav_feedback: "شاركنا رأيك",
+                nav_contact: "اتصل بنا",
+                hero_slogan: "حلول تكنولوجية <span>متكاملة</span>",
+                hero_description: "مركزك الجزائري الموثوق للإصلاحات، الحلول التقنية، الإكسسوارات، والخدمات الرقمية.",
+                hero_cta: "اكتشف خدماتنا",
+                main_services_title: "خدماتنا الرئيسية",
+                main_services_subtitle: "اكتشف عروضنا الأساسية. نقدم حلولاً متخصصة بلمسة احترافية. مرر فوق البطاقة لرؤية المزيد من التفاصيل.",
+                why_us_title: "لماذا تختارنا؟",
+                why_us_subtitle: "نحن ملتزمون بتقديم أفضل خدمة وقيمة لعملائنا. إليك ما يميزنا.",
+                other_services_title: "ماذا نقدم أيضاً",
+                other_services_subtitle: "بالإضافة إلى خدماتنا الرئيسية، نقدم مجموعة من الحلول الرقمية والمادية لتلبية احتياجاتك اليومية.",
+                testimonials_title: "شهادات العملاء",
+                testimonials_subtitle: "شاهد ما يقوله عملاؤنا الراضون عن تجربتهم مع كلشي-تيك. ثقتكم هي أعظم أصولنا.",
+                add_testimonial_btn: "أضف شهادتك",
+                close_form_btn: "إغلاق النموذج",
+                feedback_title: "شاركنا رأيك",
+                feedback_subtitle: "نحن نقدر رأيك! ساعدنا على التحسن من خلال مشاركة تجربتك. تظهر الشهادات الجديدة على الفور.",
+                form_name: "اسمك",
+                form_rating: "تقييمك",
+                form_feedback_text: "رأيك",
+                form_images: "تحميل حتى 4 صور (اختياري)",
+                form_select_images: "اختر الصور",
+                form_submit_btn: "إرسال الشهادة",
+                contact_title: "تواصل معنا",
+                contact_subtitle: "هل لديك سؤال أو مشروع في ذهنك؟ نحن هنا للمساعدة. تواصل معنا عبر أي من القنوات أدناه.",
+                contact_phone: "الهاتف / واتساب / تلغرام",
+                contact_email: "البريد الإلكتروني",
+                contact_location: "الموقع",
+                contact_address: "شارع 2 (مقابل الإقامة الجامعية)، سيدي عبد الله، المحالمة، الجزائر العاصمة.",
+                footer_text: "&copy; 2024 كلشي-تيك. جميع الحقوق محفوظة.",
+            },
+            tz: {
+                nav_services: "Inaqqimen nneɣ",
+                nav_why_us: "Acuɣer nekni",
+                nav_what_we_offer: "Ayen nettɛeddi",
+                nav_testimonials: "Timuyin",
+                nav_feedback: "Ameslay fell-aɣ",
+                nav_contact: "Amsawal",
+                hero_slogan: "Tifratin n <span>Teknulujit</span> Kullec Deg Yiwen",
+                hero_description: "Amḍiq-nwen n tidet di Lezzayer i tuṣṣfa, tifratin teknulujiyin, iserkiyen, d inaqqimen n uẓeṭṭa.",
+                hero_cta: "Af-d inaqqimen nneɣ",
+                main_services_title: "Inaqqimen nneɣ Imenzayen",
+                main_services_subtitle: "Af-d ayen i neqqar. Nettak tifratin s tussna d tezmert. Sɛeddi af teqfilt i wakken ad twaliḍ ugar.",
+                why_us_title: "Acuɣer ad aɣ-textareḍ?",
+                why_us_subtitle: "Nettḥebbir i wakken ad nerr lbaht i yimdanen-nneɣ. Atah wayen i ɣ-yerran d imxalafen.",
+                other_services_title: "Ayen Nniḍen i Neqqar",
+                other_services_subtitle: "Zdat inaqqimen-nneɣ imenzayen, nettɛeddi aṭas n tifratin n uẓeṭṭa d tid n tidet i ushel n tudert-nwen.",
+                testimonials_title: "Timuyin n Yimdanen",
+                testimonials_subtitle: "Wali ayen i d-nnan yimdanen-nneɣ fell-aɣ. Tidet-nwen d ayla-nneɣ.",
+                add_testimonial_btn: "Azen tamuyt-nwen",
+                close_form_btn: "Mdel Tasedmirt",
+                feedback_title: "Efk-d rray-nwen",
+                feedback_subtitle: "Rray-nwen yesɛa azal! ɛiwen-aɣ ad nili d ifazzen s umeslay-nwen. Timuyin timaynutin tteffɣent-d imiren.",
+                form_name: "Isem-nwen",
+                form_rating: "Tamuɣli-nwen",
+                form_feedback_text: "Awal-nwen",
+                form_images: "Sali alamma d 4 n twelaf (ma tebɣiḍ)",
+                form_select_images: "Fren tiwlaf",
+                form_submit_btn: "Azen Tamuyt",
+                contact_title: "Ssiwel-aɣ-d",
+                contact_subtitle: "Tesɛiḍ asteqsi neɣ asenfar? Aql-aɣ dagi i umɛiwen. Ssiwel-aɣ-d seg yiwet seg tallunin-agi.",
+                contact_phone: "Tiliɣri / WhatsApp / Telegram",
+                contact_email: "Imayl",
+                contact_location: "Amḍiq",
+                contact_address: "Abrid 2 (Zdat Tzedduɣt n Inelmaden), Sidi Abdellah, Mehalma, Lezzayer.",
+                footer_text: "&copy; 2024 Kolchi-Tec. Izrefan merra ttwaḥerzen.",
+            }
+        };
+
+        const mainServicesData = [
+            { id: "repair", icon: "fas fa-tools", title: "Professional Fixing & Repair", description: "Expert repairs for phones, laptops, PCs, consoles, and controllers. We bring your devices back to life with precision and care." },
+            { id: "office", icon: "fas fa-file-word", title: "Microsoft Office Projects", description: "Professional assistance with Word, Excel, PowerPoint projects, translations, and more. Perfect for students and professionals." },
+            { id: "accessories", icon: "fas fa-headphones-alt", title: "High-Quality Tech Accessories", description: "A wide range of accessories for phones, laptops, and PC peripherals at reasonable and competitive prices." },
+            { id: "iot", icon: "fas fa-microchip", title: "Complex Project Realisation", description: "Bringing your ideas to life with Raspberry Pi, Arduino, robotics, IoT, and custom coding projects." },
+            { id: "webdev", icon: "fas fa-code", title: "Web & App Development", description: "Custom websites, mobile applications, and e-commerce solutions tailored to your business needs." },
+            { id: "student", icon: "fas fa-user-graduate", title: "Special Student Offers", description: "Exclusive discounts up to 80% on various services to support students in their academic journey." },
+            { id: "design", icon: "fas fa-paint-brush", title: "Pro Graphic Design", description: "Creative design services for CVs, posters, banners, logos, business cards, and complete branding packages." },
+            { id: "bus", icon: "fas fa-bus", title: "Local Bus Reservations", description: "Conveniently book your bus tickets for travel across all 58 wilayas of Algeria." },
+            { id: "soccer", icon: "fas fa-futbol", title: "Soccer Tickets", description: "Get your tickets for major Algerian league matches including MCA, USMA, CRB, JSK, MCO, and more." },
+        ];
+        
+        const otherServicesData = [
+            { id: "parts", icon: "fa-tools", title: "Selling Repair Parts" },
+            { id: "peripherals", icon: "fa-keyboard", title: "Accessories & Peripherals" },
+            { id: "printing", icon: "fa-print", title: "Photocopying & Printing" },
+            { id: "accounts", icon: "fa-users", title: "Accounts Sales" },
+            { id: "payments", icon: "fa-credit-card", title: "Online Payments & Top-ups" },
+            { id: "inscriptions", icon: "fa-file-signature", title: "Online Inscriptions" },
+            { id: "reservations", icon: "fa-plane", title: "General Reservations" },
+            { id: "photo_video", icon: "fa-camera-retro", title: "Photo/Video Production" },
+            { id: "cosmetics", icon: "fa-spa", title: "Cosmetics & Beauty" },
+        ];
+
+        const whyUsData = [
+            { id: "fast", icon: "fa-bolt", title: "Fast & Reliable", description: "We deliver professional service quickly and efficiently, respecting your time." },
+            { id: "affordable", icon: "fa-tags", title: "Affordable Prices", description: "Competitive pricing with special discounts available for students." },
+            { id: "expertise", icon: "fa-cogs", title: "Expertise & Experience", description: "Deep knowledge in tech, electronics, and software to solve any problem." },
+            { id: "trusted", icon: "fa-handshake", title: "Trusted by Many", description: "Hundreds of satisfied customers trust us for their tech needs." },
+            { id: "one_stop", icon: "fa-store", title: "One-Stop-Shop", description: "Everything tech, digital, and creative you need, all in one place." },
+        ];
+        
+        let testimonialsData = [];
+
+        // ------------------- //
+        // --- UI ELEMENTS --- //
+        // ------------------- //
+        const themeToggle = document.getElementById('theme-toggle');
+        const languageSelector = document.getElementById('language-selector');
+        const backToTopBtn = document.getElementById('back-to-top');
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+        const mainServicesGrid = document.getElementById('main-services-grid');
+        const otherServicesGrid = document.getElementById('other-services-grid');
+        const whyUsGrid = document.getElementById('why-us-grid');
+        const testimonialCarousel = document.getElementById('testimonial-carousel');
+        const testimonialForm = document.getElementById('testimonial-form');
+        const imageUpload = document.getElementById('image-upload');
+        const imagePreviews = document.getElementById('image-previews');
+        const toggleFeedbackBtn = document.getElementById('toggle-feedback-form');
+        const feedbackFormWrapper = document.getElementById('feedback-form-wrapper');
+        const headerLogo = document.getElementById('header-logo');
+        const heroLogo = document.querySelector('.hero-logo');
+        const logoSound = document.getElementById('logo-sound');
+        let uploadedFiles = [];
+
+        // ------------------- //
+        // --- MODAL & AUTH --- //
+        // ------------------- //
+        
+        const createModal = (title, content, actions, id = '') => {
+            const modalOverlay = document.createElement('div');
+            modalOverlay.className = 'modal-overlay';
+            if (id) modalOverlay.id = id;
+            
+            const modalContent = document.createElement('div');
+            modalContent.className = 'modal-content';
+            
+            if (title) {
+                modalContent.innerHTML = `<h3>${title}</h3>`;
+            }
+            
+            if (typeof content === 'string') {
+                const p = document.createElement('p');
+                p.innerHTML = content;
+                modalContent.appendChild(p);
+            } else {
+                modalContent.appendChild(content);
+            }
+            
+            if (actions && actions.length > 0) {
+                const modalActions = document.createElement('div');
+                modalActions.className = 'modal-actions';
+                
+                actions.forEach(action => {
+                    const btn = document.createElement('button');
+                    btn.className = `modal-btn ${action.class}`;
+                    btn.textContent = action.text;
+                    btn.onclick = () => {
+                        action.handler();
+                        if (action.closes) {
+                           document.body.removeChild(modalOverlay);
+                        }
+                    };
+                    modalActions.appendChild(btn);
+                });
+                modalContent.appendChild(modalActions);
+            }
+            
+            modalOverlay.appendChild(modalContent);
+            document.body.appendChild(modalOverlay);
+
+            // Make it visible
+            setTimeout(() => modalOverlay.classList.add('visible'), 10);
+            return modalOverlay;
+        };
+
+        const promptForCredentials = (callback) => {
+            const form = document.createElement('form');
+            form.innerHTML = `
+                <div class="form-group">
+                    <label for="admin-user">Username</label>
+                    <input type="text" id="admin-user" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-pass">Password</label>
+                    <input type="password" id="admin-pass" required>
+                </div>
+            `;
+            
+            createModal('Admin Access Required', form, [
+                { text: 'Cancel', class: 'modal-btn-secondary', handler: () => callback(false), closes: true },
+                { text: 'Submit', class: 'modal-btn-primary', handler: () => {
+                    const user = form.querySelector('#admin-user').value;
+                    const pass = form.querySelector('#admin-pass').value;
+                    callback(user === 'jebr' && pass === '3121');
+                }, closes: true}
+            ]);
+        };
+        
+        const showThankYouMessage = () => {
+            createModal('Thank You!', 'Your feedback has been submitted and is pending review. We appreciate you taking the time to help us improve!', [
+                { text: 'Close', class: 'modal-btn-primary', handler: () => {}, closes: true }
+            ]);
+        };
+
+        const showImageLightbox = (images, startIndex = 0) => {
+            let currentIndex = startIndex;
+
+            const content = document.createElement('div');
+            const img = document.createElement('img');
+            img.src = images[currentIndex];
+            content.appendChild(img);
+            
+            const modal = createModal(null, content, [], 'image-lightbox');
+            
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'lightbox-close';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = () => document.body.removeChild(modal);
+            modal.querySelector('.modal-content').appendChild(closeBtn);
+
+            if (images.length > 1) {
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'lightbox-nav lightbox-prev';
+                prevBtn.innerHTML = '&#10094;';
+                prevBtn.onclick = () => {
+                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    img.src = images[currentIndex];
+                };
+                modal.querySelector('.modal-content').appendChild(prevBtn);
+
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'lightbox-nav lightbox-next';
+                nextBtn.innerHTML = '&#10095;';
+                nextBtn.onclick = () => {
+                    currentIndex = (currentIndex + 1) % images.length;
+                    img.src = images[currentIndex];
+                };
+                modal.querySelector('.modal-content').appendChild(nextBtn);
+            }
+        };
+
+        // ------------------- //
+        // --- THEME TOGGLE --- //
+        // ------------------- //
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        };
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        });
+
+        // ------------------- //
+        // --- DATA & LOCALSTORAGE --- //
+        // ------------------- //
+        function loadTestimonials() {
+            const saved = localStorage.getItem('kolchiTecTestimonials');
+            if (saved) {
+                testimonialsData = JSON.parse(saved);
+            } else {
+                // Default data is now empty
+                testimonialsData = [];
+            }
+        }
+
+        function saveTestimonials() {
+            localStorage.setItem('kolchiTecTestimonials', JSON.stringify(testimonialsData));
+        }
+
+        // ------------------- //
+        // --- DYNAMIC CONTENT POPULATION --- //
+        // ------------------- //
+        const populateMainServices = () => {
+            mainServicesGrid.innerHTML = mainServicesData.map(service => `
+                <div class="service-card-container fade-in">
+                    <div class="service-card">
+                        <div class="service-card-face service-card-front">
+                            <div class="main-service-icon"><i class="${service.icon}"></i></div>
+                            <h3 data-lang="service_title_${service.id}">${service.title}</h3>
+                        </div>
+                        <div class="service-card-face service-card-back">
+                            <div>
+                                <h3 data-lang="service_title_${service.id}">${service.title}</h3>
+                                <p data-lang="service_desc_${service.id}">${service.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            addCardFlipListeners();
+        };
+        
+        const populateOtherServices = () => {
+            otherServicesGrid.innerHTML = otherServicesData.map(service => `
+                <div class="other-service-card fade-in">
+                    <span class="icon"><i class="fas ${service.icon}"></i></span>
+                    <h4 data-lang="other_service_title_${service.id}">${service.title}</h4>
+                </div>
+            `).join('');
+        };
+
+        const populateWhyUs = () => {
+            whyUsGrid.innerHTML = whyUsData.map(service => `
+                <div class="why-us-card fade-in">
+                    <div class="icon"><i class="fas ${service.icon}"></i></div>
+                    <h3 data-lang="why_us_title_${service.id}">${service.title}</h3>
+                    <p data-lang="why_us_desc_${service.id}">${service.description}</p>
+                </div>
+            `).join('');
+        };
+        
+        const populateTestimonials = () => {
+            if(testimonialsData.length === 0) {
+                testimonialCarousel.innerHTML = `<p style="text-align:center; width:100%; color: var(--text-secondary);">No testimonials yet. Be the first to leave one!</p>`;
+                return;
+            }
+            const cardsHTML = testimonialsData.map((testimonial) => `
+                <div class="testimonial-card ${!testimonial.approved ? 'blurry' : ''}" data-id="${testimonial.id}">
+                    <button class="delete-testimonial-btn" data-id="${testimonial.id}" title="Delete Testimonial"><i class="fas fa-trash-alt"></i></button>
+                    <div class="testimonial-card-content">
+                        <div class="testimonial-author">
+                            <img src="${testimonial.avatar}" alt="${testimonial.name}" onerror="this.onerror=null;this.src='https://placehold.co/100x100/cccccc/333333?text=Avatar';">
+                            <div>
+                                <div class="testimonial-author-name">${testimonial.name}</div>
+                                <div class="testimonial-rating">
+                                    ${'★'.repeat(testimonial.rating)}${'☆'.repeat(5 - testimonial.rating)}
+                                </div>
+                            </div>
+                        </div>
+                        <p class="testimonial-text">${testimonial.text}</p>
+                        ${testimonial.images.length > 0 ? `
+                        <button class="view-photos-btn" data-id="${testimonial.id}">View Photos (${testimonial.images.length})</button>
+                        ` : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            testimonialCarousel.innerHTML = cardsHTML + cardsHTML; // Duplicate for seamless loop
+            const numCards = testimonialsData.length;
+            const duration = numCards * 20; // Slower speed: 20s per card
+            testimonialCarousel.style.animation = `scroll ${duration}s linear infinite`;
+
+            addTestimonialEventListeners();
+        };
+
+        // ------------------- //
+        // --- TRANSLATION --- //
+        // ------------------- //
+        const addTranslationData = () => {
+             mainServicesData.forEach(s => {
+                translations.en[`service_title_${s.id}`] = s.title;
+                translations.en[`service_desc_${s.id}`] = s.description;
+             });
+             otherServicesData.forEach(s => {
+                translations.en[`other_service_title_${s.id}`] = s.title;
+             });
+             whyUsData.forEach(s => {
+                translations.en[`why_us_title_${s.id}`] = s.title;
+                translations.en[`why_us_desc_${s.id}`] = s.description;
+             });
+             
+             ['fr', 'ar', 'tz'].forEach(lang => {
+                mainServicesData.forEach(s => {
+                    translations[lang][`service_title_${s.id}`] = s.title + ` (${lang})`;
+                    translations[lang][`service_desc_${s.id}`] = s.description + ` (${lang})`;
+                });
+                otherServicesData.forEach(s => {
+                    translations[lang][`other_service_title_${s.id}`] = s.title + ` (${lang})`;
+                });
+                whyUsData.forEach(s => {
+                    translations[lang][`why_us_title_${s.id}`] = s.title + ` (${lang})`;
+                    translations[lang][`why_us_desc_${s.id}`] = s.description + ` (${lang})`;
+                });
+             });
+        };
+
+        const setLanguage = (lang) => {
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            localStorage.setItem('language', lang);
+        };
+
+        languageSelector.addEventListener('change', (e) => {
+            setLanguage(e.target.value);
+        });
+        
+        // ------------------- //
+        // --- EVENT LISTENERS & UI LOGIC --- //
+        // ------------------- //
+
+        // Header & Hero Logo Sound
+        headerLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            logoSound.currentTime = 0;
+            logoSound.play();
+        });
+        heroLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            logoSound.currentTime = 0;
+            logoSound.play();
+        });
+        
+        // Mobile Menu
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Back to Top Button
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Service Card Flip
+        function addCardFlipListeners() {
+            document.querySelectorAll('.service-card-container').forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('flipped');
+                });
+            });
+        }
+
+        // Testimonial Moderation
+        function addTestimonialEventListeners() {
+            document.querySelectorAll('.delete-testimonial-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    promptForCredentials(success => {
+                        if (success) {
+                            testimonialsData = testimonialsData.filter(t => t.id !== id);
+                            saveTestimonials();
+                            populateTestimonials();
+                        } else {
+                            alert('Incorrect credentials.');
+                        }
+                    });
+                };
+            });
+            
+            document.querySelectorAll('.testimonial-card.blurry').forEach(card => {
+                card.onclick = () => {
+                    const id = parseInt(card.dataset.id);
+                    promptForCredentials(success => {
+                        if (success) {
+                            const testimonial = testimonialsData.find(t => t.id === id);
+                            if (testimonial) {
+                                testimonial.approved = true;
+                                saveTestimonials();
+                                populateTestimonials();
+                            }
+                        } else {
+                            alert('Incorrect credentials.');
+                        }
+                    });
+                };
+            });
+            
+            document.querySelectorAll('.view-photos-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    const testimonial = testimonialsData.find(t => t.id === id);
+                    if (testimonial && testimonial.images.length > 0) {
+                        showImageLightbox(testimonial.images);
+                    }
+                }
+            });
+        }
+        
+        // Feedback Form Toggle
+        toggleFeedbackBtn.addEventListener('click', () => {
+            const isVisible = feedbackFormWrapper.classList.toggle('visible');
+            const lang = localStorage.getItem('language') || 'en';
+            if (isVisible) {
+                toggleFeedbackBtn.textContent = translations[lang].close_form_btn || 'Close Form';
+                feedbackFormWrapper.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                toggleFeedbackBtn.textContent = translations[lang].add_testimonial_btn || 'Add Your Testimonial';
+            }
+        });
+
+        // Feedback Form Submission
+        imageUpload.addEventListener('change', () => {
+            const files = Array.from(imageUpload.files);
+            const remainingSlots = 4 - uploadedFiles.length;
+            
+            const filesToAdd = files.slice(0, remainingSlots);
+            
+            filesToAdd.forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const fileData = { file, url: e.target.result };
+                        uploadedFiles.push(fileData);
+                        renderImagePreviews();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        function renderImagePreviews() {
+            imagePreviews.innerHTML = '';
+            uploadedFiles.forEach((fileData, index) => {
+                const previewContainer = document.createElement('div');
+                previewContainer.className = 'preview-container';
+                
+                const img = document.createElement('img');
+                img.src = fileData.url;
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-img-btn';
+                removeBtn.innerHTML = '&times;';
+                removeBtn.onclick = () => {
+                    uploadedFiles.splice(index, 1);
+                    renderImagePreviews();
+                };
+                
+                previewContainer.appendChild(img);
+                previewContainer.appendChild(removeBtn);
+                imagePreviews.appendChild(previewContainer);
+            });
+        }
+
+        testimonialForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('customer-name').value;
+            const ratingEl = document.querySelector('input[name="rating"]:checked');
+            if (!ratingEl) {
+                alert('Please provide a rating.');
+                return;
+            }
+            const rating = parseInt(ratingEl.value);
+            const text = document.getElementById('feedback-text').value;
+
+            const newTestimonial = {
+                id: Date.now(),
+                name,
+                rating,
+                text,
+                images: uploadedFiles.map(f => f.url),
+                avatar: `https://placehold.co/100x100/a3e635/5b21b6?text=${name.substring(0,2).toUpperCase()}`,
+                approved: false // New testimonials are not approved by default
+            };
+
+            testimonialsData.unshift(newTestimonial);
+            saveTestimonials();
+            populateTestimonials();
+            
+            // Show thank you message and reset form
+            showThankYouMessage();
+            testimonialForm.reset();
+            uploadedFiles = [];
+            renderImagePreviews();
+            
+            // Hide form after submission
+            feedbackFormWrapper.classList.remove('visible');
+            const lang = localStorage.getItem('language') || 'en';
+            toggleFeedbackBtn.textContent = translations[lang].add_testimonial_btn || 'Add Your Testimonial';
+        });
+        
+        // Fade-in animations on scroll
+        const setupFadeInObserver = () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        };
+
+        // ------------------- //
+        // --- HERO CANVAS ANIMATION --- //
+        // ------------------- //
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const mouse = { x: null, y: null, radius: 100 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = document.getElementById('hero').offsetHeight;
+        }
+
+        canvas.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+        canvas.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+        canvas.addEventListener('click', () => {
+            particles.forEach(p => {
+                const dx = mouse.x - p.x;
+                const dy = mouse.y - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    p.vx = (Math.random() - 0.5) * 5;
+                    p.vy = (Math.random() - 0.5) * 5;
+                }
+            });
+        });
+
+
+        class Particle {
+            constructor(iconClass, text, color) {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 10 + 15;
+                this.baseSize = this.size;
+                this.iconClass = iconClass;
+                this.text = text;
+                this.color = color;
+            }
+
+            draw() {
+                ctx.font = `900 ${this.size}px "Font Awesome 6 Free"`;
+                ctx.fillStyle = this.color;
+                ctx.fillText(this.iconClass, this.x, this.y);
+            }
+
+            update() {
+                if (this.x > canvas.width || this.x < 0) this.vx = -this.vx;
+                if (this.y > canvas.height || this.y < 0) this.vy = -this.vy;
+
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Mouse interaction
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < mouse.radius) {
+                    this.size = this.baseSize * 1.5;
+                } else {
+                    this.size = this.baseSize;
+                }
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const iconData = [...mainServicesData, ...testimonialsData];
+            const numParticles = Math.min(30, iconData.length);
+            const isDarkMode = document.body.classList.contains('dark-mode');
+
+            for (let i = 0; i < numParticles; i++) {
+                const data = iconData[i % iconData.length];
+                const icon = data.icon || 'fas fa-star';
+                const text = data.title || data.name;
+                const color = isDarkMode ? 'rgba(163, 230, 53, 0.5)' : 'rgba(91, 33, 182, 0.4)';
+                
+                const iconCode = getIconCode(icon);
+                if(iconCode) {
+                    particles.push(new Particle(iconCode, text, color));
+                }
+            }
+        }
+        
+        function getIconCode(className) {
+            const iconMap = {
+                'fa-tools': '\uf7d9', 'fa-file-word': '\uf1c2', 'fa-headphones-alt': '\uf58f',
+                'fa-microchip': '\uf2db', 'fa-code': '\uf121', 'fa-user-graduate': '\uf501',
+                'fa-paint-brush': '\uf1fc', 'fa-bus': '\uf207', 'fa-futbol': '\uf1e3',
+                'fa-star': '\uf005'
+            };
+            const key = className.split(' ')[1];
+            return iconMap[key];
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+
+        // ------------------- //
+        // --- INITIALIZATION --- //
+        // ------------------- //
+        const init = () => {
+            // Load saved theme, default to dark
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+            
+            // Load data
+            loadTestimonials();
+
+            // Populate dynamic content
+            populateMainServices();
+            populateOtherServices();
+            populateWhyUs();
+            populateTestimonials();
+            
+            // Prepare and load saved language
+            addTranslationData();
+            const savedLanguage = localStorage.getItem('language') || 'en';
+            languageSelector.value = savedLanguage;
+            setLanguage(savedLanguage);
+            
+            // Setup observer AFTER content is in the DOM
+            setupFadeInObserver();
+            
+            // Wait for fonts to be ready before starting canvas animation
+            document.fonts.ready.then(() => {
+                resizeCanvas();
+                initParticles();
+                animate();
+                window.addEventListener('resize', () => {
+                    resizeCanvas();
+                    initParticles();
+                });
+            });
+        };
+
+        init();
+    });
+    </script>
+</body>
+</html>
