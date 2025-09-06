@@ -719,7 +719,6 @@
         /* --- Feedback Form Section --- */
         /* ------------------- */
         #feedback {
-            padding-top: 0;
         }
         
         .feedback-form-wrapper {
@@ -942,6 +941,20 @@
         footer p {
             color: var(--text-secondary);
         }
+        
+        .about-us-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .about-us-btn:hover {
+            color: var(--accent-color);
+        }
+
 
         /* ------------------- */
         /* --- Extra Features (Modals, etc.) --- */
@@ -1101,6 +1114,136 @@
             z-index: 2001;
         }
 
+        /* ------------------- */
+        /* --- About Us Modal --- */
+        /* ------------------- */
+        .about-us-modal .modal-content {
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: left;
+            padding: 2rem 2.5rem;
+        }
+        .about-us-modal section {
+            padding: 0;
+        }
+        .about-us-modal section:not(:last-child) {
+            margin-bottom: 1.5rem;
+        }
+        .about-us-modal h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        .about-us-modal h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            margin-top: 0;
+            color: var(--text-primary);
+        }
+        .about-us-modal p, .about-us-modal li {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .about-us-modal ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .about-us-modal li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        .about-us-modal .list-icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4px;
+            background-color: color-mix(in srgb, var(--primary-color) 15%, transparent);
+            color: var(--primary-color);
+        }
+        .about-us-modal .list-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        .about-us-modal strong {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .about-us-modal .contact-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+        .about-us-modal .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .about-us-modal .contact-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .about-us-modal .contact-link:hover {
+            background-color: var(--bg-primary);
+        }
+        .about-us-modal .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        .about-us-modal .contact-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+        .about-us-modal .close-modal-btn {
+             position: absolute;
+             top: 1rem;
+             right: 1rem;
+             background: none;
+             border: none;
+             font-size: 1.5rem;
+             cursor: pointer;
+             color: var(--text-secondary);
+        }
+        .about-us-modal .close-modal-btn:hover {
+            color: var(--text-primary);
+        }
+        
+        .about-us-modal .modal-content::-webkit-scrollbar {
+             width: 8px;
+        }
+        .about-us-modal .modal-content::-webkit-scrollbar-track {
+             background: transparent;
+        }
+        .about-us-modal .modal-content::-webkit-scrollbar-thumb {
+             background-color: var(--accent-color);
+             border-radius: 10px;
+        }
+        body.dark-mode .about-us-modal .modal-content::-webkit-scrollbar-thumb {
+            background-color: var(--brand-purple);
+        }
+
 
         /* ------------------- */
         /* --- Responsive Design --- */
@@ -1152,6 +1295,9 @@
             }
             .form-container {
                 padding: 1.5rem;
+            }
+            .about-us-modal .modal-content {
+                padding: 2rem 1.5rem;
             }
         }
 
@@ -1233,7 +1379,7 @@
                 <h2 class="section-title" data-lang="why_us_title">Why Choose Us?</h2>
                 <p class="section-subtitle" data-lang="why_us_subtitle">We are committed to providing the best service and value to our customers. Here’s what makes us stand out.</p>
                 <div class="why-us-grid" id="why-us-grid">
-                     <!-- Why Us cards will be dynamically inserted here -->
+                        <!-- Why Us cards will be dynamically inserted here -->
                 </div>
             </div>
         </section>
@@ -1364,8 +1510,9 @@
     <!-- ======================= -->
     <footer>
         <div class="container">
-            <p data-lang="footer_text">&copy; NeoChip Smart Club | NeoChip Dev | 2025 Kolchi-Tec. All Rights Reserved.</p>
+            <p data-lang="footer_text">&copy; 2025 NeoChip Smart Club | NeoChip Dev | Kolchi-Tec - All Rights Reserved.</p>
             <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">by: Louhaidia Djaber</p>
+            <button id="open-about-modal-btn" class="about-us-btn">About NeoChip Smart Club</button>
         </div>
     </footer>
     
@@ -1375,11 +1522,119 @@
     <a href="#" class="back-to-top" id="back-to-top" aria-label="Back to top"><i class="fas fa-arrow-up"></i></a>
     <a href="https://wa.me/213659420420" target="_blank" class="whatsapp-float visible" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
     <audio id="logo-sound" src="https://files.catbox.moe/e96u01.wav" preload="auto"></audio>
+    
+    <!-- ======================= -->
+    <!-- ====== ABOUT US MODAL === -->
+    <!-- ======================= -->
+    <div id="aboutUsModal" class="modal-overlay about-us-modal" style="display: none;">
+        <div class="modal-content">
+            <button id="closeAboutModalBtn" class="close-modal-btn">&times;</button>
+            <section>
+                <h1>About Us</h1>
+                <p>
+                    At NeoChip Smart Club, we believe innovation is the key to shaping a smarter, more sustainable future. From robotics and artificial intelligence to renewable energy and advanced software, our mission is to transform ideas into impactful solutions. We bring together creativity, research, and technology to design systems that solve real-world challenges and improve everyday life. Through our sub-brands—NeoChip Labs, NeoChip Dev, NeoChip Robotics, and NeoChip Energy, NeoChip Vision—we explore new horizons, build smart solutions, and inspire the next generation of innovators.
+                </p>
+            </section>
+    
+            <section>
+                <h2>Our Vision</h2>
+                <p>
+                    To become a leading hub of innovation in technology and science, where ideas evolve into solutions that empower communities, protect the environment, and redefine the future.
+                </p>
+            </section>
+    
+            <section>
+                <h2>Why Choose Us</h2>
+                <ul>
+                    <li>
+                        <div class="list-icon">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+                            </svg>
+                        </div>
+                        <span><strong>Innovative Mindset</strong> – we don’t just follow trends; we create them by merging creativity with cutting-edge technology.</span>
+                    </li>
+                    <li>
+                         <div class="list-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+                            </svg>
+                        </div>
+                        <span><strong>Diverse Expertise</strong> – from robotics and AI to renewable energy and software, our multidisciplinary skills ensure complete solutions.</span>
+                    </li>
+                    <li>
+                         <div class="list-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        </div>
+                        <span><strong>Problem-Solving Focus</strong> – every project is designed to solve real-world challenges and improve daily life.</span>
+                    </li>
+                     <li>
+                         <div class="list-icon">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                            </svg>
+                        </div>
+                        <span><strong>Collaboration & Growth</strong> – we value teamwork, knowledge-sharing, and inspiring the next generation of innovators.</span>
+                    </li>
+                </ul>
+            </section>
+            
+            <section class="contact-section">
+                <h2>Contact Us</h2>
+                <div class="contact-grid">
+                    <a href="https://www.instagram.com/neochipclub/" target="_blank" class="contact-link">
+                         <div class="contact-icon" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
+                           <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </div>
+                        <div>
+                            <p><strong>Instagram</strong></p>
+                            <p>@neochipclub</p>
+                        </div>
+                    </a>
+                    <a href="https://api.whatsapp.com/send/?phone=%2B213674009476&text&type=phone_number&app_absent=0" target="_blank" class="contact-link">
+                         <div class="contact-icon" style="background-color: #25D366;">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                            </svg>
+                        </div>
+                        <div>
+                           <p><strong>WhatsApp</strong></p>
+                           <p>+213 674 00 94 76</p>
+                        </div>
+                    </a>
+                    <a href="https://t.me/djvber" target="_blank" class="contact-link">
+                         <div class="contact-icon" style="background-color: #26A5E4;">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 496 512">
+                                <title>Telegram</title>
+                                <path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62.4-45.6-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.6 114.9-103.8c5-4.4-1.1-6.9-7.7-2.5l-142.3 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4.2 20.8 2.7 17.2 19.5z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <p><strong>Telegram</strong></p>
+                            <p>@djvber</p>
+                        </div>
+                    </a>
+                    <a href="mailto:neochipclub@gmail.com" class="contact-link">
+                         <div class="contact-icon" style="background-color: var(--text-secondary);">
+                           <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                        </div>
+                        <div>
+                            <p><strong>Email</strong></p>
+                            <p>neochipclub@gmail.com</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
 
     <script type="module">
         // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, addDoc, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -1439,7 +1694,7 @@
                 contact_email: "Email",
                 contact_location: "Location",
                 contact_address: "Boullevard 2 (opposite the student residence), Sidi Abdellah, Mehalema, Algiers.",
-                footer_text: "&copy; NeoChip Smart Club | NeoChip Dev | 2025 Kolchi-Tec. All Rights Reserved.",
+                footer_text: "&copy; 2025 NeoChip Smart Club | NeoChip Dev | Kolchi-Tec - All Rights Reserved.",
             },
             fr: {
                 nav_services: "Nos Services",
@@ -1605,6 +1860,10 @@
         const headerLogo = document.getElementById('header-logo');
         const heroLogo = document.querySelector('.hero-logo');
         const logoSound = document.getElementById('logo-sound');
+        const openAboutModalBtn = document.getElementById('open-about-modal-btn');
+        const closeAboutModalBtn = document.getElementById('closeAboutModalBtn');
+        const aboutUsModal = document.getElementById('aboutUsModal');
+
         let uploadedFiles = [];
 
         // ------------------- //
@@ -1826,30 +2085,30 @@
         // ------------------- //
         const addTranslationData = () => {
              mainServicesData.forEach(s => {
-                translations.en[`service_title_${s.id}`] = s.title;
-                translations.en[`service_desc_${s.id}`] = s.description;
-             });
+                 translations.en[`service_title_${s.id}`] = s.title;
+                 translations.en[`service_desc_${s.id}`] = s.description;
+              });
              otherServicesData.forEach(s => {
-                translations.en[`other_service_title_${s.id}`] = s.title;
-             });
+                 translations.en[`other_service_title_${s.id}`] = s.title;
+              });
              whyUsData.forEach(s => {
-                translations.en[`why_us_title_${s.id}`] = s.title;
-                translations.en[`why_us_desc_${s.id}`] = s.description;
-             });
+                 translations.en[`why_us_title_${s.id}`] = s.title;
+                 translations.en[`why_us_desc_${s.id}`] = s.description;
+              });
              
              ['fr', 'ar', 'tz'].forEach(lang => {
-                mainServicesData.forEach(s => {
-                    translations[lang][`service_title_${s.id}`] = s.title + ` (${lang})`;
-                    translations[lang][`service_desc_${s.id}`] = s.description + ` (${lang})`;
-                });
-                otherServicesData.forEach(s => {
-                    translations[lang][`other_service_title_${s.id}`] = s.title + ` (${lang})`;
-                });
-                whyUsData.forEach(s => {
-                    translations[lang][`why_us_title_${s.id}`] = s.title + ` (${lang})`;
-                    translations[lang][`why_us_desc_${s.id}`] = s.description + ` (${lang})`;
-                });
-             });
+                 mainServicesData.forEach(s => {
+                     translations[lang][`service_title_${s.id}`] = s.title + ` (${lang})`;
+                     translations[lang][`service_desc_${s.id}`] = s.description + ` (${lang})`;
+                 });
+                 otherServicesData.forEach(s => {
+                     translations[lang][`other_service_title_${s.id}`] = s.title + ` (${lang})`;
+                 });
+                 whyUsData.forEach(s => {
+                     translations[lang][`why_us_title_${s.id}`] = s.title + ` (${lang})`;
+                     translations[lang][`why_us_desc_${s.id}`] = s.description + ` (${lang})`;
+                 });
+              });
         };
 
         const setLanguage = (lang) => {
@@ -1872,6 +2131,24 @@
         // ------------------- //
         // --- EVENT LISTENERS & UI LOGIC --- //
         // ------------------- //
+
+        // About Us Modal Logic
+        const openAboutModal = () => {
+            aboutUsModal.style.display = 'flex';
+            setTimeout(() => aboutUsModal.classList.add('visible'), 10);
+        };
+        const closeAboutModal = () => {
+            aboutUsModal.classList.remove('visible');
+            setTimeout(() => aboutUsModal.style.display = 'none', 300);
+        };
+        openAboutModalBtn.addEventListener('click', openAboutModal);
+        closeAboutModalBtn.addEventListener('click', closeAboutModal);
+        aboutUsModal.addEventListener('click', (e) => {
+            if (e.target === aboutUsModal) {
+                closeAboutModal();
+            }
+        });
+
 
         // Header & Hero Logo Sound
         headerLogo.addEventListener('click', (e) => {
@@ -2233,5 +2510,7 @@
     </script>
 </body>
 </html>
+
+
 
 
